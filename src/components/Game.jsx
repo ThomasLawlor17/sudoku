@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-export default function Game({puzzle, difficulty, userPuzzle, setUserPuzzle, timer, setTimer, solved, setSolved, gameover, solvedPuzzle}) {
+export default function Game({puzzle, difficulty, userPuzzle, setUserPuzzle, timer, setTimer, solved, setSolved, gameover, solvedPuzzle, checkSolution}) {
 
 
     const handleNumberInput = (e,i) => {
@@ -30,7 +30,7 @@ export default function Game({puzzle, difficulty, userPuzzle, setUserPuzzle, tim
             }, 1000)
         }
         else {
-            alert("DONE")
+            console.log("TIME!")
         }
     }, [timer, setTimer, solved])
 
@@ -51,7 +51,7 @@ export default function Game({puzzle, difficulty, userPuzzle, setUserPuzzle, tim
     null 
     :
     <>
-    <button onClick={() => setSolved(true)}>FINISH</button>
+    <button onClick={checkSolution}>FINISH</button>
     <button onClick={handleRestartPuzzle}>Restart</button>
     </>
     }

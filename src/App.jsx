@@ -9,6 +9,7 @@ function App() {
 	const [difficulty, setDifficulty] = useState();
 	const [puzzle, setPuzzle] = useState([]);
 	const [solvedPuzzle, setSolvedPuzzle] = useState();
+  const [multiple, setMultiple] = useState(false)
 	const [userPuzzle, setUserPuzzle] = useState();
 	const [timer, setTimer] = useState(0);
 	const [solved, setSolved] = useState(false);
@@ -47,9 +48,37 @@ function App() {
 	};
 	const fetchSolution = async () => {
 		const res = await axios.request(solveOptions);
-		setSolvedPuzzle(res.data.solution.split(''));
-		setGameover(true);
+    console.log(res.data['example-solution'])
+    if (res.data.result !== 'unique solution') {
+      setSolvedPuzzle(res.data['example-solution'].split(''))
+      setMultiple(true)
+    }
+    else {
+      setSolvedPuzzle(res.data.solution.split(''));
+    }
 	};
+  const handleGameover = async() => {
+    await fetchSolution()
+    setGameover(true)
+  }
+  const checkSolution = async() => {
+    await fetchSolution()
+    console.log(solvedPuzzle)
+    if (multiple) {
+      console.log("MULTIPLE")
+    }
+    else {
+      let up = userPuzzle.join('')
+      let sp = solvedPuzzle.join('')
+      if (up === sp) {
+        setSolved(true)
+        alert("DONE!")
+      }
+      else {
+        alert("THE PUZZLE IS NOT CORRECT!")
+      }
+    }
+  }
 
 	return (
 		<div className="App">
@@ -66,8 +95,9 @@ function App() {
 						setSolved={setSolved}
 						gameover={gameover}
             solvedPuzzle={solvedPuzzle}
+            checkSolution={checkSolution}
 					/>
-					<button onClick={fetchSolution}>Solve</button>
+					<button onClick={handleGameover}>Solve</button>
 				</>
 			) : (
 				<Setup
