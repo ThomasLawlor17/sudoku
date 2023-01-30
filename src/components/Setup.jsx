@@ -10,9 +10,9 @@ export default function Setup({difficulty, setDifficulty, fetchPuzzle}) {
         <li><button onClick={() => setDifficulty('hard')} className={difficulty === 'hard' ? 'selected' : null}>Hard</button></li>
       </ul>
       {difficulty ? 
-      <button onClick={fetchPuzzle}>Start!</button>
+      <button className='start-btn' onClick={fetchPuzzle}>Start!</button>
       :
-      <button disabled>Start!</button>
+      <button className='start-btn' disabled>Start!</button>
       }
     </div>
   )
