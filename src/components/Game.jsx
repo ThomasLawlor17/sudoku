@@ -111,7 +111,7 @@ export default function Game({
 				{gameover
 					? solvedPuzzle.map((s, i) => (
 							<div key={i} className={"box-" + i}>
-								{s}
+								<span>{s}</span>
 							</div>
 					  ))
                     :
@@ -129,7 +129,7 @@ export default function Game({
 								/>
 							) : (
 								<div key={i} className={solved ? "solved box-" + i : "box-" + i}>
-									{s}
+									<span>{s}</span>
 								</div>
 							)
 					  )}
